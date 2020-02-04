@@ -7,12 +7,12 @@ import pages.JiraIssuePage;
 import pages.JiraLoginPage;
 
 public class BrowseIssues extends BaseTest {
+    private JiraLoginPage loginPage = new JiraLoginPage(driver);
+    private JiraIssuePage issuePage = new JiraIssuePage(driver);
+
     @ParameterizedTest
     @CsvFileSource(resources = "/specific-issues.csv")
     void browseSpecificIssues(String username, String issue) {
-        JiraLoginPage loginPage = new JiraLoginPage(driver);
-        JiraIssuePage issuePage = new JiraIssuePage(driver);
-
         loginPage.navigateToLoginPage();
         loginPage.loginWithCredentials(username, VALID_PW);
         issuePage.navigateToIssue(issue);

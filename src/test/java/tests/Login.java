@@ -8,12 +8,12 @@ import pages.JiraLoginPage;
 import pages.JiraUserProfilePage;
 
 public class Login extends BaseTest{
+    private JiraLoginPage loginPage = new JiraLoginPage(driver);
+    private JiraUserProfilePage userPage = new JiraUserProfilePage(driver);
+
     @ParameterizedTest
     @ValueSource(strings = {"user14", "user15", "user16"})
     void successfulLogin(String username) {
-        JiraLoginPage loginPage = new JiraLoginPage(driver);
-        JiraUserProfilePage userPage = new JiraUserProfilePage(driver);
-
         loginPage.navigateToLoginPage();
         loginPage.loginWithCredentials(username, System.getenv("password"));
         userPage.navigateToProfilePage();
@@ -22,7 +22,6 @@ public class Login extends BaseTest{
 
     @Test
     void invalidLogin() {
-        JiraLoginPage loginPage = new JiraLoginPage(driver);
         String expectedErrorMsg = "Sorry, your username and password are incorrect - please try again.";
 
         loginPage.navigateToLoginPage();
