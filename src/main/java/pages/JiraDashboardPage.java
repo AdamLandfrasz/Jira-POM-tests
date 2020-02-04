@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,19 +24,27 @@ public class JiraDashboardPage extends BasePage {
     @FindBy(xpath = "//a[@id=\"header-details-user-fullname\"]")
     private WebElement profileLink;
     @FindBy(xpath = "//a[@id=\"log_out\"]")
-    private WebElement logOut;
+    private WebElement logout;
+    @FindBy(xpath = "//*[@id=\"user-options\"]//a")
+    private WebElement logInNavButton;
+    @FindBy(xpath = "//*[@id=\"login-form-username\"]")
+    private WebElement usernameField;
 
     public JiraDashboardPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
 
-    public void clickViewAllProjects() {
+    public void navigateToDashboard() {
+        navigateToUrl("secure/Dashboard.jspa");
+    }
+
+    public void navigateToViewAllProjects() {
         projectsNavElement.click();
         wait.until(ExpectedConditions.elementToBeClickable(viewAllProjects)).click();
     }
 
-    public void clickSearchIssues() {
+    public void navigateToSearchIssues() {
         issuesNavElement.click();
         wait.until(ExpectedConditions.elementToBeClickable(searchForIssues)).click();
     }
@@ -45,5 +54,18 @@ public class JiraDashboardPage extends BasePage {
 
         createButton.click();
         wait.until(ExpectedConditions.presenceOfElementLocated(createIssueWindow));
+    }
+
+    public void logout() {
+        profileLink.click();
+        wait.until(ExpectedConditions.elementToBeClickable(logout)).click();
+    }
+
+    public boolean isLoginButtonPresent() {
+        try {
+            return logInNavButton.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }
