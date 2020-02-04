@@ -27,8 +27,10 @@ public class JiraDashboardPage extends BasePage {
     private WebElement logout;
     @FindBy(xpath = "//*[@id=\"user-options\"]//a")
     private WebElement logInNavButton;
-    @FindBy(xpath = "//*[@id=\"login-form-username\"]")
+    @FindBy(xpath = "//input[@id=\"login-form-username\"]")
     private WebElement usernameField;
+    @FindBy(xpath = "//*[@id=\"login-form-password\"]")
+    private WebElement passwordField;
 
     public JiraDashboardPage(WebDriver driver) {
         super(driver);
@@ -67,5 +69,11 @@ public class JiraDashboardPage extends BasePage {
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+    public void loginFromDashboard(String username, String pw) {
+        usernameField.sendKeys(username);
+        passwordField.sendKeys(pw);
+        passwordField.submit();
     }
 }

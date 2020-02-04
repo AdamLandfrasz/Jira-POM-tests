@@ -17,7 +17,17 @@ public class Login extends BaseTest{
     @ValueSource(strings = {"user14", "user15", "user16"})
     void successfulLogin(String username) {
         loginPage.navigateToLoginPage();
-        loginPage.loginWithCredentials(username, System.getenv("password"));
+        loginPage.loginWithCredentials(username, VALID_PW);
+        userPage.navigateToProfilePage();
+        Assertions.assertEquals(username, userPage.getUsernameText());
+    }
+
+    @Test
+    void successfulLoginDashboard() {
+        String username = "user15";
+
+        dashboard.navigateToDashboard();
+        dashboard.loginFromDashboard(username, VALID_PW);
         userPage.navigateToProfilePage();
         Assertions.assertEquals(username, userPage.getUsernameText());
     }
