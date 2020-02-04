@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +13,8 @@ public class JiraLoginPage extends BasePage{
     private WebElement passwordInputField;
     @FindBy(xpath = "//input[@id=\"login-form-submit\"]")
     private WebElement loginButton;
+    @FindBy(xpath = "//p[contains(text(), \"please try again\")]")
+    private WebElement errorMsg;
 
     public JiraLoginPage(WebDriver driver) {
         super(driver);
@@ -26,5 +29,21 @@ public class JiraLoginPage extends BasePage{
         usernameInputField.sendKeys(username);
         passwordInputField.sendKeys(password);
         loginButton.click();
+    }
+
+    public boolean isErrorPresent() {
+        try {
+            return errorMsg.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public String getErrorMsgText() {
+        return errorMsg.getText();
+    }
+
+    public void validLogin() {
+        loginWithCredentials("user15", System.getenv("password"));
     }
 }

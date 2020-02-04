@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BaseTest {
+    final String VALID_PW = System.getenv("password");
     WebDriver driver;
     WebDriverWait wait;
 
