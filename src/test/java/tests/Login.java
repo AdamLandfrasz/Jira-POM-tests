@@ -24,12 +24,10 @@ public class Login extends BaseTest{
 
     @Test
     void successfulLoginDashboard() {
-        String username = "user15";
-
         dashboard.navigateToDashboard();
-        dashboard.loginFromDashboard(username, VALID_PW);
+        dashboard.loginFromDashboard("user15", VALID_PW);
         userPage.navigateToProfilePage();
-        Assertions.assertEquals(username, userPage.getUsernameText());
+        Assertions.assertEquals("user15", userPage.getUsernameText());
     }
 
     @Test
