@@ -1,14 +1,40 @@
 package pages;
 
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class JiraIssuePage extends BasePage {
     @FindBy(xpath = "//a[@id=\"key-val\"]")
     private WebElement issueTitleLink;
+    @FindBy(xpath = "//h1[@id=\"summary-val\"]")
+    private WebElement issueSummary;
+    @FindBy(xpath = "//span[@id=\"type-val\"]")
+    private WebElement issueType;
+    @FindBy(xpath = "//a[@id=\"opsbar-operations_more\"]")
+    private WebElement moreDropdown;
+    @FindBy(xpath = "//*[@id=\"delete-issue\"]")
+    private WebElement deleteOption;
+
+    @FindBy(xpath = "//div[@id=\"aui-flag-container\"]/div/div/a")
+    private WebElement issuePopupLink;
+
+    @FindBy(xpath = "//input[@id=\"delete-issue-submit\"]")
+    private WebElement confirmDeleteButton;
+
+    @FindBy(xpath = "//a[@id=\"edit-issue\"]")
+    private WebElement editIssueButton;
+    @FindBy(xpath = "//*[@id=\"qf-field-picker-trigger\"]")
+    private WebElement configureFieldsButton;
+    @FindBy(xpath = "//*[@id=\"inline-dialog-field_picker_popup\"]/div[1]/div/div[1]/dl/dd[1]")
+    private WebElement optionAll;
+    @FindBy(xpath = "//*[@id=\"summary\"]")
+    private WebElement summaryField;
+    @FindBy(xpath = "//*[@id=\"edit-issue-dialog\"]/div[2]/div[1]/div/form/div[2]/div/a")
+    private WebElement cancelButton;
 
     public JiraIssuePage(WebDriver driver) {
         super(driver);
@@ -28,6 +54,65 @@ public class JiraIssuePage extends BasePage {
     }
 
     public String getIssueNameText() {
-        return issueTitleLink.getText();
+        try {
+            return issueTitleLink.getText();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
+    public String getIssueSummaryText() {
+        try {
+            return issueSummary.getText();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
+    public String getIssueTypeText() {
+        try {
+            return issueType.getText();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
+    public void clickIssuePopup() {
+        wait.until(ExpectedConditions.elementToBeClickable(issuePopupLink)).click();
+    }
+
+    public void deleteIssue() {
+        moreDropdown.click();
+        wait.until(ExpectedConditions.elementToBeClickable(deleteOption)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(confirmDeleteButton)).click();
+    }
+
+    public void clickEditIssueButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(editIssueButton));
+        editIssueButton.click();
+        clickConfigureFieldsButton();
+    }
+
+    public void clickConfigureFieldsButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(configureFieldsButton));
+        configureFieldsButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(optionAll));
+        try {
+            optionAll.click();
+        }
+        catch(ElementNotInteractableException e) {}
+    }
+
+    public void editSummaryField(String data) {
+        wait.until(ExpectedConditions.visibilityOf(summaryField));
+        summaryField.click();
+        summaryField.clear();
+        summaryField.sendKeys(data);
+    }
+
+    public void cancelEditIssue() {
+        wait.until(ExpectedConditions.elementToBeClickable(cancelButton));
+        cancelButton.click();
+        driver.switchTo().alert().accept();
     }
 }
