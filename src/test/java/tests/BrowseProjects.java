@@ -1,5 +1,6 @@
 package tests;
 
+import com.sun.jdi.event.ThreadStartEvent;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,16 @@ public class BrowseProjects extends BaseTest {
     private JiraProjectPage projectPage = new JiraProjectPage(driver);
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
 
-    @Disabled
     @Test
-    void navigateToMTPSummaryPage(){
+    void navigateToMTPSummaryPage () throws InterruptedException {
 
+        final String mtpKey = "MTP";
+
+        loginPage.navigateToLoginPage();
+        loginPage.validLogin();
+        dashboardPage.navigateToViewAllProjects();
         browseProjectsPage.navigateToMTPSummaryPage();
-        Assertions.assertTrue(projectPage.isGivenProjectKeyPresent("MTP"));
+        Assertions.assertTrue(projectPage.isGivenProjectKeyPresent(mtpKey));
     }
 
     @Disabled
