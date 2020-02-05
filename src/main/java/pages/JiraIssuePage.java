@@ -1,11 +1,12 @@
 package pages;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class JiraIssuePage extends BasePage {
     @FindBy(xpath = "//a[@id=\"key-val\"]")
@@ -100,7 +101,7 @@ public class JiraIssuePage extends BasePage {
         try {
             optionAll.click();
         }
-        catch(ElementNotInteractableException e) {}
+        catch(ElementNotInteractableException ignored) {}
     }
 
     public void editSummaryField(String data) {

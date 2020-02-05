@@ -19,4 +19,6 @@ public class BrowseIssues extends BaseTest {
         Assertions.assertTrue(issuePage.isIssueNamePresent());
         Assertions.assertEquals(issue, issuePage.getIssueNameText());
     }
+
+
 }

@@ -1,8 +1,6 @@
 package pages;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -30,10 +28,10 @@ public class JiraCreateIssuePage extends BasePage{
     }
 
     private void setIssueField(WebElement field, String value) {
-        wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
         wait.until(ExpectedConditions.elementToBeClickable(field)).click();
         field.sendKeys(value);
         field.sendKeys(Keys.TAB);
+        wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
     }
 
     public void clickCreateIssue() {
@@ -56,8 +54,31 @@ public class JiraCreateIssuePage extends BasePage{
         submitIssueButton.click();
     }
 
+    private void acceptAlert() {
+        try {
+            driver.switchTo().alert().accept();
+        } catch (NoAlertPresentException ignored){}
+    }
+
     public void cancelIssueCreation() {
         cancelButton.click();
-        driver.switchTo().alert().accept();
+        acceptAlert();
     }
+
+    private String getIssueFieldValue(WebElement field) {
+        try {
+            return wait.until(ExpectedConditions.elementToBeClickable(field)).getAttribute("value");
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
+    public String getProjectFieldValue() {
+        return getIssueFieldValue(projectField);
+    }
+
+    public String getIssueTypeFieldValue() {
+        return getIssueFieldValue(issueTypeField);
+    }
+
 }
