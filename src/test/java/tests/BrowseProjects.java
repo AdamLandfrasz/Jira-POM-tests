@@ -26,7 +26,6 @@ public class BrowseProjects extends BaseTest {
         Assertions.assertTrue(projectPage.isGivenProjectKeyPresent(mtpKey));
     }
 
-    @Disabled
     @Test
     void navigateToAdministratorPage(){
 

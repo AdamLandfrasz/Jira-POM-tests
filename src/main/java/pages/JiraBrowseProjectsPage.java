@@ -34,7 +34,6 @@ public class JiraBrowseProjectsPage extends BasePage {
 
 
         wait.until(ExpectedConditions.presenceOfElementLocated(projectNameElement)).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(projectKeyElement));
     }
 
     public void goToProject(String projectName) {
