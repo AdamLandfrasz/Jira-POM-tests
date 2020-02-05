@@ -7,7 +7,7 @@ import pages.JiraIssuePage;
 import pages.JiraLoginPage;
 
 public class EditIssue extends BaseTest {
-    private JiraLoginPage dashboard = new JiraLoginPage(driver);
+    private JiraLoginPage loginPage = new JiraLoginPage(driver);
     private JiraIssuePage issuePage = new JiraIssuePage(driver);
 
     private String testIssue = "MTP-1043";
@@ -16,8 +16,8 @@ public class EditIssue extends BaseTest {
 
     @BeforeEach
     public void login() {
-        dashboard.navigateToLoginPage();
-        dashboard.loginWithCredentials("user15", VALID_PW);
+        loginPage.navigateToLoginPage();
+        loginPage.loginWithCredentials("user15", VALID_PW);
     }
 
     @Test
@@ -42,5 +42,14 @@ public class EditIssue extends BaseTest {
         Assertions.assertEquals(newTitle, issuePage.getIssueSummaryText());
 
         issuePage.resetTestIssue(oldTitle);
+    }
+
+    @Test
+    void editIssueWithEmpty() {
+        issuePage.navigateToIssue(testIssue);
+        issuePage.clickEditIssueButton();
+        issuePage.saveEmpty();
+
+        Assertions.assertTrue(issuePage.correctErrorMsg());
     }
 }

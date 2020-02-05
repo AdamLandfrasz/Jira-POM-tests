@@ -43,6 +43,8 @@ public class JiraIssuePage extends BasePage {
     private WebElement updateIssueButton;
     @FindBy(xpath = "//*[@id=\"aui-flag-container\"]/div/div")
     private WebElement updateIssueFlag;
+    @FindBy(xpath = "//*[@id=\"edit-issue-dialog\"]/div[2]/div[1]/div/form/div[1]/div/div[1]/div")
+    private WebElement summaryFieldErrorMsg;
 
     public JiraIssuePage(WebDriver driver) {
         super(driver);
@@ -141,5 +143,16 @@ public class JiraIssuePage extends BasePage {
         clickEditIssueButton();
         editSummaryField(title);
         updateIssue();
+    }
+
+    public void saveEmpty() {
+        wait.until(ExpectedConditions.visibilityOf(summaryField));
+        summaryField.click();
+        summaryField.clear();
+        updateIssueButton.click();
+    }
+
+    public boolean correctErrorMsg() {
+        return summaryFieldErrorMsg.getText().equals("You must specify a summary of the issue.");
     }
 }
