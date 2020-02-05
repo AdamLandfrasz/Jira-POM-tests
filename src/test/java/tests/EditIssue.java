@@ -1,8 +1,10 @@
 package tests;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.openqa.selenium.WebElement;
 import pages.JiraIssuePage;
 import pages.JiraLoginPage;
 
@@ -14,14 +16,11 @@ public class EditIssue extends BaseTest {
     private String oldTitle = "Edit issue works?";
     private String newTitle = "Edit test";
 
-    @BeforeEach
-    public void login() {
-        loginPage.navigateToLoginPage();
-        loginPage.loginWithCredentials("user15", VALID_PW);
-    }
-
     @Test
     void editIssueAndCancel() {
+        loginPage.navigateToLoginPage();
+        loginPage.loginWithCredentials("user15", VALID_PW);
+
         issuePage.navigateToIssue(testIssue);
         issuePage.clickEditIssueButton();
         issuePage.editSummaryField(newTitle);
@@ -34,6 +33,9 @@ public class EditIssue extends BaseTest {
 
     @Test
     void editIssueAndSave() {
+        loginPage.navigateToLoginPage();
+        loginPage.loginWithCredentials("user15", VALID_PW);
+
         issuePage.navigateToIssue(testIssue);
         issuePage.clickEditIssueButton();
         issuePage.editSummaryField(newTitle);
@@ -46,10 +48,23 @@ public class EditIssue extends BaseTest {
 
     @Test
     void editIssueWithEmpty() {
+        loginPage.navigateToLoginPage();
+        loginPage.loginWithCredentials("user15", VALID_PW);
+
         issuePage.navigateToIssue(testIssue);
         issuePage.clickEditIssueButton();
         issuePage.saveEmpty();
 
         Assertions.assertTrue(issuePage.correctErrorMsg());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/specific-issues.csv")
+    void editabilityOfSpecificIssues(String username, String issue) {
+        loginPage.navigateToLoginPage();
+        loginPage.loginWithCredentials(username, VALID_PW);
+        issuePage.navigateToIssue(issue);
+
+        Assertions.assertTrue(issuePage.isEditIssueButtonAvailable());
     }
 }
