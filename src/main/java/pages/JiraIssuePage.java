@@ -153,6 +153,7 @@ public class JiraIssuePage extends BasePage {
     }
 
     public boolean correctErrorMsg() {
+        wait.until(ExpectedConditions.visibilityOf(summaryFieldErrorMsg));
         return summaryFieldErrorMsg.getText().equals("You must specify a summary of the issue.");
     }
 }
