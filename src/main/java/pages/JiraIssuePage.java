@@ -106,7 +106,6 @@ public class JiraIssuePage extends BasePage {
     public void clickConfigureFieldsButton() {
         wait.until(ExpectedConditions.elementToBeClickable(configureFieldsButton));
         configureFieldsButton.click();
-        wait.until(ExpectedConditions.elementToBeClickable(optionAll));
         try {
             optionAll.click();
         }
@@ -152,7 +151,7 @@ public class JiraIssuePage extends BasePage {
         updateIssueButton.click();
     }
 
-    public boolean correctErrorMsg() {
+    public boolean isErrorMsgCorrect() {
         wait.until(ExpectedConditions.visibilityOf(summaryFieldErrorMsg));
         return summaryFieldErrorMsg.getText().equals("You must specify a summary of the issue.");
     }
