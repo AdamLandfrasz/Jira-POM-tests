@@ -7,11 +7,13 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import pages.JiraDashboardPage;
 import pages.JiraIssuePage;
 import pages.JiraLoginPage;
+import pages.JiraProjectPermissionsPage;
 import tests.BaseTest;
 
 public class Permissions extends BaseTest {
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
     private JiraDashboardPage dashboardPage = new JiraDashboardPage(driver);
+    private JiraProjectPermissionsPage projectPermissionsPage = new JiraProjectPermissionsPage(driver);
 
     @Test
     void browseProjectsPermissions(){
