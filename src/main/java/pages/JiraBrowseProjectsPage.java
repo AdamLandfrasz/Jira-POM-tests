@@ -20,20 +20,18 @@ public class JiraBrowseProjectsPage extends BasePage {
     public void searchForMTP() {
         final String mtp = "main testing project";
 
-        By firstProjectInList = By.xpath("//*[@id=\"projects\"]//a[text()=\"Main Testing Project\"]");
 
         projectsSearchBar.sendKeys(mtp);
-        wait.until(ExpectedConditions.presenceOfElementLocated(firstProjectInList)).click();
     }
 
     public void navigateToMTPSummaryPage(){
         searchForMTP();
+        By firstProjectInList = By.xpath("//*[@id=\"projects\"]//a[text()=\"Main Testing Project\"]");
 
+        wait.until(ExpectedConditions.presenceOfElementLocated(firstProjectInList)).click();
         By projectNameElement = By.xpath("//*[@id=\"content\"]//a");
-        By projectKeyElement = By.xpath("By.xpath(\"//*[@id=\"summary-body\"]//dd[text()=\"MTP\"]");
 
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(projectNameElement)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(projectNameElement)).click();
     }
 
     public void goToProject(String projectName) {

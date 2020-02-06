@@ -13,9 +13,10 @@ public class BrowseProjects extends BaseTest {
     private JiraBrowseProjectsPage browseProjectsPage = new JiraBrowseProjectsPage(driver);
     private JiraProjectPage projectPage = new JiraProjectPage(driver);
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
+    private JiraUserProfilePage profilePage = new JiraUserProfilePage(driver);
 
     @Test
-    void navigateToMTPSummaryPage () throws InterruptedException {
+    void navigateToMTPSummaryPage() {
 
         final String mtpKey = "MTP";
 
@@ -27,10 +28,14 @@ public class BrowseProjects extends BaseTest {
     }
 
     @Test
-    void navigateToAdministratorPage(){
+    void navigateToAdministratorPage() {
+        final String expectedUsername = "jiraadmin";
 
+        loginPage.navigateToLoginPage();
+        loginPage.validLogin();
+        dashboardPage.navigateToViewAllProjects();
         browseProjectsPage.navigateToAdministratorUserPage();
-        //Assertions.assertTrue(projectPage.);
+        Assertions.assertEquals(expectedUsername, profilePage.getUsernameText());
     }
 
     @ParameterizedTest
