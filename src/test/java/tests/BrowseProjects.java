@@ -1,5 +1,6 @@
 package tests;
 
+import com.sun.jdi.event.ThreadStartEvent;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -12,21 +13,29 @@ public class BrowseProjects extends BaseTest {
     private JiraBrowseProjectsPage browseProjectsPage = new JiraBrowseProjectsPage(driver);
     private JiraProjectPage projectPage = new JiraProjectPage(driver);
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
+    private JiraUserProfilePage profilePage = new JiraUserProfilePage(driver);
 
-    @Disabled
     @Test
-    void navigateToMTPSummaryPage(){
+    void navigateToMTPSummaryPage() {
 
+        final String mtpKey = "MTP";
+
+        loginPage.navigateToLoginPage();
+        loginPage.validLogin();
+        dashboardPage.navigateToViewAllProjects();
         browseProjectsPage.navigateToMTPSummaryPage();
-        Assertions.assertTrue(projectPage.isGivenProjectKeyPresent("MTP"));
+        Assertions.assertTrue(projectPage.isGivenProjectKeyPresent(mtpKey));
     }
 
-    @Disabled
     @Test
-    void navigateToAdministratorPage(){
+    void navigateToAdministratorPage() {
+        final String expectedUsername = "jiraadmin";
 
+        loginPage.navigateToLoginPage();
+        loginPage.validLogin();
+        dashboardPage.navigateToViewAllProjects();
         browseProjectsPage.navigateToAdministratorUserPage();
-        //Assertions.assertTrue(projectPage.);
+        Assertions.assertEquals(expectedUsername, profilePage.getUsernameText());
     }
 
     @ParameterizedTest
