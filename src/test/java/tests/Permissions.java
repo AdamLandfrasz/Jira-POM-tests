@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import pages.JiraDashboardPage;
 import pages.JiraIssuePage;
 import pages.JiraLoginPage;
+import tests.BaseTest;
 
 public class Permissions extends BaseTest {
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
