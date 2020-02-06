@@ -1,9 +1,13 @@
 package pages;
 
+import okio.Timeout;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.sql.Time;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
@@ -35,6 +39,12 @@ public class JiraIssuePage extends BasePage {
     private WebElement summaryField;
     @FindBy(xpath = "//*[@id=\"edit-issue-dialog\"]/div[2]/div[1]/div/form/div[2]/div/a")
     private WebElement cancelButton;
+    @FindBy(xpath = "//*[@id=\"edit-issue-submit\"]")
+    private WebElement updateIssueButton;
+    @FindBy(xpath = "//*[@id=\"aui-flag-container\"]/div/div")
+    private WebElement updateIssueFlag;
+    @FindBy(xpath = "//*[@id=\"edit-issue-dialog\"]/div[2]/div[1]/div/form/div[1]/div/div[1]/div")
+    private WebElement summaryFieldErrorMsg;
 
     public JiraIssuePage(WebDriver driver) {
         super(driver);
@@ -103,16 +113,56 @@ public class JiraIssuePage extends BasePage {
         catch(ElementNotInteractableException e) {}
     }
 
-    public void editSummaryField(String data) {
+    public void editSummaryField(String title) {
         wait.until(ExpectedConditions.visibilityOf(summaryField));
         summaryField.click();
         summaryField.clear();
-        summaryField.sendKeys(data);
+        summaryField.sendKeys(title);
     }
 
     public void cancelEditIssue() {
         wait.until(ExpectedConditions.elementToBeClickable(cancelButton));
         cancelButton.click();
         driver.switchTo().alert().accept();
+    }
+
+    public void updateIssue() {
+        updateIssueButton.click();
+        try {
+            updateIssueFlag.isDisplayed();
+        }
+        catch (NoSuchElementException e) {
+            try {
+                wait.until(ExpectedConditions.visibilityOf(updateIssueFlag));
+            }
+            catch (TimeoutException ex) {}
+        }
+    }
+
+    public void resetTestIssue(String title) {
+        clickEditIssueButton();
+        editSummaryField(title);
+        updateIssue();
+    }
+
+    public void saveEmpty() {
+        wait.until(ExpectedConditions.visibilityOf(summaryField));
+        summaryField.click();
+        summaryField.clear();
+        updateIssueButton.click();
+    }
+
+    public boolean correctErrorMsg() {
+        wait.until(ExpectedConditions.visibilityOf(summaryFieldErrorMsg));
+        return summaryFieldErrorMsg.getText().equals("You must specify a summary of the issue.");
+    }
+
+    public boolean isEditIssueButtonAvailable() {
+        try {
+            return editIssueButton.isDisplayed();
+        }
+        catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }
