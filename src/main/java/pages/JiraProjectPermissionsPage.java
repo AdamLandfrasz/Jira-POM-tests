@@ -8,9 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class JiraProjectPermissionsPage extends BasePage {
-    @FindBy(xpath = "//tr[@data-permission-key=\"BROWSE_PROJECTS\"]//dd");
-    private WebElement browseProjetsRowValueElement;
-    @FindBy(xpath = "//a[@data-link-id=\"com.codecanvas.glass:glass\"]");
+    @FindBy(xpath = "//a[@data-link-id=\"com.codecanvas.glass:glass\"]")
     private WebElement glassDocumentationLink;
 
 
@@ -19,11 +17,19 @@ public class JiraProjectPermissionsPage extends BasePage {
         PageFactory.initElements(this.driver, this);
     }
 
-    public void goToProjectPermissionPage(String projectKey){
-        navigateToUrl("/plugins/servlet/project-config/" + "" + "permissions");
+    public void goToProjectPermissionsPage(){
+        driver.get("https://jira.codecool.codecanvas.hu/plugins/servlet/project-config/PP4/permissions");
     }
 
-    public void goToProjectGlassDocumentation(){
+    public String getGivenPermissionTypeValue(String permissionType){
+        By resultRowXPath = By.xpath("//*[@id=\"project-config-panel-permissions\"]//tr[@data-permission-key=\"" + permissionType + "\"]");
 
+        WebElement resultRowElement = driver.findElement(resultRowXPath);
+
+        return resultRowElement.findElement(By.tagName("dd")).getText();
+    }
+
+    public void navigateToGlassDocumentation(){
+        glassDocumentationLink.click();
     }
 }
