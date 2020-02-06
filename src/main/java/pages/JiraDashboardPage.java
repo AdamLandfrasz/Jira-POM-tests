@@ -26,9 +26,9 @@ public class JiraDashboardPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"user-options\"]//a")
     private WebElement logInNavButton;
 
-    @FindBy(xpath = "//input[@id=\"login-form-username\"]")
+    @FindBy(xpath = "//input[@name=\"os_username\"]")
     private WebElement usernameField;
-    @FindBy(xpath = "//*[@id=\"login-form-password\"]")
+    @FindBy(xpath = "//*[@name=\"os_password\"]")
     private WebElement passwordField;
 
     public JiraDashboardPage(WebDriver driver) {
