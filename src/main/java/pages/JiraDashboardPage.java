@@ -67,5 +67,6 @@ public class JiraDashboardPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(usernameField)).sendKeys(username);
         wait.until(ExpectedConditions.elementToBeClickable(passwordField)).sendKeys(pw);
         passwordField.submit();
+        wait.until(ExpectedConditions.elementToBeClickable(profileLink));
     }
 }
