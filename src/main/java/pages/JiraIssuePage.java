@@ -22,6 +22,8 @@ public class JiraIssuePage extends BasePage {
     private WebElement moreDropdown;
     @FindBy(xpath = "//*[@id=\"delete-issue\"]")
     private WebElement deleteOption;
+    @FindBy(xpath = "//*[@id=\"create-subtask\"]")
+    private WebElement createSubTask;
 
     @FindBy(xpath = "//input[@id=\"delete-issue-submit\"]")
     private WebElement confirmDeleteButton;
@@ -29,6 +31,8 @@ public class JiraIssuePage extends BasePage {
     @FindBy(xpath = "//div[@id=\"aui-flag-container\"]/div/div/a")
     private WebElement issuePopupLink;
 
+    @FindBy(xpath = "//*[@id=\"view-subtasks\"]//*[@id=\"issuetable\"]//a")
+    private WebElement subTaskSummary;
 
     @FindBy(xpath = "//a[@id=\"edit-issue\"]")
     private WebElement editIssueButton;
@@ -96,6 +100,19 @@ public class JiraIssuePage extends BasePage {
         moreDropdown.click();
         wait.until(ExpectedConditions.elementToBeClickable(deleteOption)).click();
         wait.until(ExpectedConditions.elementToBeClickable(confirmDeleteButton)).click();
+    }
+
+    public void openSubTaskDialog() {
+        moreDropdown.click();
+        wait.until(ExpectedConditions.elementToBeClickable(createSubTask)).click();
+    }
+
+    public String getSubTaskSummaryText() {
+        try {
+            return wait.until(ExpectedConditions.elementToBeClickable(subTaskSummary)).getText();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     public void clickEditIssueButton() {

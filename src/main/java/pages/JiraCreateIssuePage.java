@@ -10,6 +10,8 @@ public class JiraCreateIssuePage extends BasePage{
     private WebElement createNavButton;
     @FindBy(xpath = "//div[@id=\"create-issue-dialog\"]")
     private WebElement issueCreateDialog;
+    @FindBy(xpath = "//*[@id=\"create-subtask-dialog\"]")
+    private WebElement createSubTaskDialog;
 
     @FindBy(xpath = "//input[@id=\"project-field\"]")
     private WebElement projectField;
@@ -28,11 +30,13 @@ public class JiraCreateIssuePage extends BasePage{
     }
 
     private void setIssueField(WebElement field, String value) {
-        wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
-        wait.until(ExpectedConditions.elementToBeClickable(field)).click();
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(field)).click();
+        } catch (StaleElementReferenceException e) {
+            wait.until(ExpectedConditions.elementToBeClickable(field)).click();
+        }
         field.sendKeys(value);
         field.sendKeys(Keys.TAB);
-        wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
     }
 
     public void clickCreateIssue() {
@@ -41,18 +45,26 @@ public class JiraCreateIssuePage extends BasePage{
 
     public void setProjectValue(String projectValue) {
         setIssueField(projectField, projectValue);
+        wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
     }
 
     public void setIssueTypeValue(String issueType) {
         setIssueField(issueTypeField, issueType);
+        wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
     }
 
     public void setSummary(String summary) {
         setIssueField(summaryField, summary);
+        wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
+    }
+
+    public void setSubTaskSummary(String summary) {
+        setIssueField(summaryField, summary);
+        wait.until(ExpectedConditions.elementToBeClickable(createSubTaskDialog));
     }
 
     public void submitIssue() {
-        submitIssueButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(submitIssueButton)).click();
     }
 
     private void acceptAlert() {

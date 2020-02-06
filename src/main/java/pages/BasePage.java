@@ -10,7 +10,7 @@ public abstract class BasePage {
 
     BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, 5);
+        this.wait = new WebDriverWait(this.driver, 6);
     }
 
     void navigateToUrl(String urlPart) {

@@ -1,5 +1,6 @@
 package tests;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,12 +9,11 @@ import pages.*;
 
 public class CreateIssue extends BaseTest {
     private JiraDashboardPage dashboard = new JiraDashboardPage(driver);
-    private JiraLoginPage loginPage = new JiraLoginPage(driver);
     private JiraCreateIssuePage createIssueWindow = new JiraCreateIssuePage(driver);
     private JiraIssuePage issuePage = new JiraIssuePage(driver);
     private JiraSearchIssuesPage searchIssuesPage = new JiraSearchIssuesPage(driver);
 
-    private void issueCreationProcess(String project, String issueType, String summary) {
+    private void doIssueCreation(String project, String issueType, String summary) {
         dashboard.navigateToDashboard();
         dashboard.loginFromDashboard("user15", VALID_PW);
         createIssueWindow.clickCreateIssue();
@@ -23,13 +23,18 @@ public class CreateIssue extends BaseTest {
         createIssueWindow.submitIssue();
     }
 
+    @AfterEach
+    void tearDownAfterEach() {
+        dashboard.logout();
+    }
+
     @Test
     void createIssue() {
         String project = "MTP";
         String issueType = "Task";
         String summary = String.valueOf(System.currentTimeMillis());
 
-        issueCreationProcess(project, issueType, summary);
+        doIssueCreation(project, issueType, summary);
         issuePage.clickIssuePopup();
         String issueSummaryText = issuePage.getIssueSummaryText();
         String issueTypeText = issuePage.getIssueTypeText();
@@ -52,7 +57,6 @@ public class CreateIssue extends BaseTest {
         String issueTypeValue = createIssueWindow.getIssueTypeFieldValue();
 
         createIssueWindow.cancelIssueCreation();
-        dashboard.logout();
 
         Assertions.assertTrue(projectFieldValue.contains(project));
         Assertions.assertEquals(issueType, issueTypeValue);
@@ -75,7 +79,8 @@ public class CreateIssue extends BaseTest {
 
         dashboard.navigateToSearchIssues();
         searchIssuesPage.inputToSearchBar("summary ~ \"" + summary + "\"");
-        Assertions.assertTrue(searchIssuesPage.areNoIssuesPresent());
+        boolean noIssuesArePresent = searchIssuesPage.areNoIssuesPresent();
+        Assertions.assertTrue(noIssuesArePresent);
     }
 
     @Test
@@ -84,7 +89,14 @@ public class CreateIssue extends BaseTest {
         String issueType = "Task";
         String summary = String.valueOf(System.currentTimeMillis());
 
-        issueCreationProcess(project, issueType, summary);
+        doIssueCreation(project, issueType, summary);
         issuePage.clickIssuePopup();
+        issuePage.openSubTaskDialog();
+        createIssueWindow.setSubTaskSummary(summary);
+        createIssueWindow.submitIssue();
+
+        String subTaskSummaryValue = issuePage.getSubTaskSummaryText();
+        issuePage.deleteIssue();
+        Assertions.assertEquals(summary, subTaskSummaryValue);
     }
 }
