@@ -31,8 +31,6 @@ public class JiraDashboardPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"login-form-password\"]")
     private WebElement passwordField;
 
-    private By createIssueWindow = By.xpath("//*[@id=\"create-issue-dialog\"]");
-
     public JiraDashboardPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
@@ -66,8 +64,8 @@ public class JiraDashboardPage extends BasePage {
     }
 
     public void loginFromDashboard(String username, String pw) {
-        usernameField.sendKeys(username);
-        passwordField.sendKeys(pw);
+        wait.until(ExpectedConditions.elementToBeClickable(usernameField)).sendKeys(username);
+        wait.until(ExpectedConditions.elementToBeClickable(passwordField)).sendKeys(pw);
         passwordField.submit();
     }
 }

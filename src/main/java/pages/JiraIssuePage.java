@@ -23,11 +23,12 @@ public class JiraIssuePage extends BasePage {
     @FindBy(xpath = "//*[@id=\"delete-issue\"]")
     private WebElement deleteOption;
 
+    @FindBy(xpath = "//input[@id=\"delete-issue-submit\"]")
+    private WebElement confirmDeleteButton;
+
     @FindBy(xpath = "//div[@id=\"aui-flag-container\"]/div/div/a")
     private WebElement issuePopupLink;
 
-    @FindBy(xpath = "//input[@id=\"delete-issue-submit\"]")
-    private WebElement confirmDeleteButton;
 
     @FindBy(xpath = "//a[@id=\"edit-issue\"]")
     private WebElement editIssueButton;
@@ -110,7 +111,7 @@ public class JiraIssuePage extends BasePage {
         try {
             optionAll.click();
         }
-        catch(ElementNotInteractableException e) {}
+        catch(ElementNotInteractableException ignored) {}
     }
 
     public void editSummaryField(String title) {
@@ -135,7 +136,7 @@ public class JiraIssuePage extends BasePage {
             try {
                 wait.until(ExpectedConditions.visibilityOf(updateIssueFlag));
             }
-            catch (TimeoutException ex) {}
+            catch (TimeoutException ignored) {}
         }
     }
 
@@ -152,7 +153,7 @@ public class JiraIssuePage extends BasePage {
         updateIssueButton.click();
     }
 
-    public boolean correctErrorMsg() {
+    public boolean isErrorMsgCorrect() {
         wait.until(ExpectedConditions.visibilityOf(summaryFieldErrorMsg));
         return summaryFieldErrorMsg.getText().equals("You must specify a summary of the issue.");
     }
