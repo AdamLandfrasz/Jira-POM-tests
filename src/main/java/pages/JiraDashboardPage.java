@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,7 +50,7 @@ public class JiraDashboardPage extends BasePage {
     }
 
     public void logout() {
-        profileLink.click();
+        wait.until(ExpectedConditions.elementToBeClickable(profileLink)).click();
         wait.until(ExpectedConditions.elementToBeClickable(logout)).click();
     }
 
