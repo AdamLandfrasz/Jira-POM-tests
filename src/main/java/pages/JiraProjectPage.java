@@ -29,12 +29,4 @@ public class JiraProjectPage extends BasePage {
         }
     }
 
-//    public boolean isGivenUsernamePresent(String username){
-//
-//        try{
-//            return driver.findElement(By.xpath("//*[@id=\"up-d-username\"]")).isDisplayed();
-//        }catch (NoSuchElementException e){
-//            return false;
-//        }
-//    }
 }
