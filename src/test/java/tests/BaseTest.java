@@ -6,17 +6,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public abstract class BaseTest {
-    static final String VALID_PW = System.getenv("password");
-    static WebDriver driver;
+    protected static final String VALID_PW = System.getenv("password");
+    protected static WebDriver driver;
 
     @BeforeAll
-    static void setUp() {
+    protected static void setUp() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
 
     @AfterAll
-    static void tearDown() {
+    protected static void tearDown() {
         if (driver != null) {driver.quit();}
     }
 }
