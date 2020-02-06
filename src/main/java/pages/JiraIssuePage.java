@@ -23,11 +23,12 @@ public class JiraIssuePage extends BasePage {
     @FindBy(xpath = "//*[@id=\"delete-issue\"]")
     private WebElement deleteOption;
 
+    @FindBy(xpath = "//input[@id=\"delete-issue-submit\"]")
+    private WebElement confirmDeleteButton;
+
     @FindBy(xpath = "//div[@id=\"aui-flag-container\"]/div/div/a")
     private WebElement issuePopupLink;
 
-    @FindBy(xpath = "//input[@id=\"delete-issue-submit\"]")
-    private WebElement confirmDeleteButton;
 
     @FindBy(xpath = "//a[@id=\"edit-issue\"]")
     private WebElement editIssueButton;

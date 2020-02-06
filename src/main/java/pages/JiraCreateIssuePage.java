@@ -28,6 +28,7 @@ public class JiraCreateIssuePage extends BasePage{
     }
 
     private void setIssueField(WebElement field, String value) {
+        wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
         wait.until(ExpectedConditions.elementToBeClickable(field)).click();
         field.sendKeys(value);
         field.sendKeys(Keys.TAB);
@@ -61,7 +62,7 @@ public class JiraCreateIssuePage extends BasePage{
     }
 
     public void cancelIssueCreation() {
-        cancelButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(cancelButton)).click();
         acceptAlert();
     }
 
@@ -70,6 +71,8 @@ public class JiraCreateIssuePage extends BasePage{
             return wait.until(ExpectedConditions.elementToBeClickable(field)).getAttribute("value");
         } catch (NoSuchElementException e) {
             return null;
+        }catch (StaleElementReferenceException e) {
+            return wait.until(ExpectedConditions.elementToBeClickable(field)).getAttribute("value");
         }
     }
 
