@@ -19,7 +19,9 @@ public class Login extends BaseTest{
         loginPage.navigateToLoginPage();
         loginPage.loginWithCredentials(username, VALID_PW);
         userPage.navigateToProfilePage();
-        Assertions.assertEquals(username, userPage.getUsernameText());
+        String usernameText = userPage.getUsernameText();
+        dashboard.logout();
+        Assertions.assertEquals(username, usernameText);
     }
 
     @Test
