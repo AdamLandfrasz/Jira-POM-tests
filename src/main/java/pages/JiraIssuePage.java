@@ -1,10 +1,7 @@
 package pages;
 
 import okio.Timeout;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -138,7 +135,7 @@ public class JiraIssuePage extends BasePage {
             try {
                 wait.until(ExpectedConditions.visibilityOf(updateIssueFlag));
             }
-            catch (TimeoutException ex) {}
+            catch (TimeoutException ignored) {}
         }
     }
 
