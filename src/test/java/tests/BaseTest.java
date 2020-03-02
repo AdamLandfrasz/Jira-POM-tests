@@ -20,8 +20,6 @@ public abstract class BaseTest {
     @BeforeAll
     protected static void setUp() throws MalformedURLException {
         DesiredCapabilities capability = DesiredCapabilities.chrome();
-        capability.setBrowserName(BrowserType.CHROME);
-        capability.setPlatform(Platform.LINUX);
         String password = System.getenv("password");
         driver = new RemoteWebDriver(new URL("https://selenium:" + password + "@seleniumhub.codecool.codecanvas.hu/wd/hub"), capability);
         driver.manage().window().maximize();
