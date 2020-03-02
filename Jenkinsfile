@@ -1,7 +1,7 @@
 pipeline {
     agent any
-    environment {
-        withCredentials([string(credentialsId: 'default_password', variable: 'pw')]) {
+    withCredentials([string(credentialsId: 'default_password', variable: 'pw')]) {
+        environment {
             password = "${pw}"
         }
     }
