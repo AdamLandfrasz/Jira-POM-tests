@@ -14,7 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public abstract class BaseTest {
-    protected static final String VALID_PW = System.getenv("PASSWORD");
+    protected static final String VALID_PW = System.getenv("password");
     protected static WebDriver driver;
 
     @BeforeAll

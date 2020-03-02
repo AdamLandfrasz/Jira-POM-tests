@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage ('Test') {
             steps {
-                withCredentials([string(credentialsId: 'PASSWORD', variable: 'PASSWORD')]) {
-                    sh 'mvn test'
-                }
+                sh 'mvn test'
             }
         }
     }
