@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        password = credentials('default_password')
+        PASSWORD = credentials('PASSWORD')
     }
     stages {
         stage ('Test') {

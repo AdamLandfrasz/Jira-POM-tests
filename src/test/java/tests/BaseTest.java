@@ -14,14 +14,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public abstract class BaseTest {
-    protected static final String VALID_PW = System.getenv("password");
+    protected static final String VALID_PW = System.getenv("PASSWORD");
     protected static WebDriver driver;
 
     @BeforeAll
     protected static void setUp() throws MalformedURLException {
         DesiredCapabilities capability = DesiredCapabilities.chrome();
-        String password = System.getenv("password");
-        driver = new RemoteWebDriver(new URL("https://selenium:" + password + "@seleniumhub.codecool.codecanvas.hu/wd/hub"), capability);
+        driver = new RemoteWebDriver(new URL("https://selenium:" + VALID_PW + "@seleniumhub.codecool.codecanvas.hu/wd/hub"), capability);
         driver.manage().window().maximize();
     }
 
