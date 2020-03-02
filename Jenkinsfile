@@ -1,12 +1,14 @@
 pipeline {
     agent any
     environment {
-        PASSWORD = credentials('PASSWORD')
+        withCredentials([secretText(credentialsId: 'PASSWORD', secretText: 'PASSWORD')]) {
+            PASSWORD = credentials('$PASSWORD')
+        }
     }
     stages {
         stage ('Test') {
             steps {
-                sh "mvn test"
+                sh 'mvn test'
             }
         }
     }
