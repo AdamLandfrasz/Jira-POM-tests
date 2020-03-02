@@ -1,12 +1,13 @@
 pipeline {
     agent any
     environment {
-        test = 'test'
+        withCredentials([string(credentialsId: 'default_password', variable: 'pw')]) {
+            password = "${pw}"
+        }
     }
     stages {
         stage ('Test') {
             steps {
-                echo "${test}"
                 sh "mvn test"
             }
         }
