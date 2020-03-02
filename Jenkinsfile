@@ -1,9 +1,7 @@
 pipeline {
     agent any
-    withCredentials([string(credentialsId: 'default_password', variable: 'pw')]) {
-        environment {
-            password = "${pw}"
-        }
+    environment {
+        password = credentials('default_password')
     }
     stages {
         stage ('Test') {
