@@ -1,13 +1,12 @@
 pipeline {
     agent any
-    withCredentials([string(credentialsId: 'JIRA_PW', variable: 'default_password')]) {
-        environment {
-            password = "${default_password}"
-        }
+    environment {
+        test = "XDD"
     }
     stages {
         stage ('Test') {
             steps {
+                sh echo "${test}"
                 sh set +x
                 sh 'mvn -Ddefault_pw=${password} test -DforkMode=never'
             }
