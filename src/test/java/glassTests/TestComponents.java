@@ -9,7 +9,7 @@ import tests.BaseTest;
 
 import javax.print.attribute.standard.PresentationDirection;
 
-public class Components extends BaseTest {
+public class TestComponents extends BaseTest {
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
     private JiraComponentsPage jiraComponentsPage = new JiraComponentsPage(driver);
     private GlassDocumentationPage glassDocPage = new GlassDocumentationPage(driver);

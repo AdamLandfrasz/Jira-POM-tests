@@ -7,7 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import pages.*;
 
-public class CreateIssue extends BaseTest {
+public class TestCreateIssue extends BaseTest {
     private JiraDashboardPage dashboard = new JiraDashboardPage(driver);
     private JiraCreateIssuePage createIssueWindow = new JiraCreateIssuePage(driver);
     private JiraIssuePage issuePage = new JiraIssuePage(driver);

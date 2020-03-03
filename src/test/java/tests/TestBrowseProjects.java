@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import pages.*;
 
-public class BrowseProjects extends BaseTest {
+public class TestBrowseProjects extends BaseTest {
     private JiraDashboardPage dashboardPage = new JiraDashboardPage(driver);
     private JiraBrowseProjectsPage browseProjectsPage = new JiraBrowseProjectsPage(driver);
     private JiraProjectPage projectPage = new JiraProjectPage(driver);

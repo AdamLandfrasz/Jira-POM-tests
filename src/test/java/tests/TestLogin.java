@@ -8,7 +8,7 @@ import pages.JiraDashboardPage;
 import pages.JiraLoginPage;
 import pages.JiraUserProfilePage;
 
-public class Login extends BaseTest{
+public class TestLogin extends BaseTest{
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
     private JiraDashboardPage dashboard = new JiraDashboardPage(driver);
     private JiraUserProfilePage userPage = new JiraUserProfilePage(driver);

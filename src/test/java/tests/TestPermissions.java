@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import pages.*;
 import tests.BaseTest;
 
-public class Permissions extends BaseTest {
+public class TestPermissions extends BaseTest {
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
     private JiraDashboardPage dashboardPage = new JiraDashboardPage(driver);
     private JiraProjectPermissionsPage projectPermissionsPage = new JiraProjectPermissionsPage(driver);

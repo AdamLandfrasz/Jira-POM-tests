@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import pages.JiraIssuePage;
 import pages.JiraLoginPage;
 
-public class BrowseIssues extends BaseTest {
+public class TestBrowseIssues extends BaseTest {
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
     private JiraIssuePage issuePage = new JiraIssuePage(driver);
 
