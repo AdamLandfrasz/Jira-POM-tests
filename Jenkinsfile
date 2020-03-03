@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage ('Test') {
             steps {
-                set +x
+                sh set +x
                 sh 'mvn -Ddefault_pw=${password} test -DforkMode=never'
             }
         }
