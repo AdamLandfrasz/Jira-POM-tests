@@ -1,6 +1,8 @@
 package pages;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -42,6 +44,6 @@ public class JiraLoginPage extends BasePage{
     }
 
     public void validLogin() {
-        loginWithCredentials("user15", System.getenv("password"));
+        loginWithCredentials("user15", System.getProperty("default_pw"));
     }
 }
