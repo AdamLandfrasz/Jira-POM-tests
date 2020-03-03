@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public abstract class BaseTest {
-    protected static final String VALID_PW = System.getProperty("default_pw");
+    protected static final String VALID_PW = System.getenv("default_pw");
     protected static WebDriver driver;
 
     @BeforeAll

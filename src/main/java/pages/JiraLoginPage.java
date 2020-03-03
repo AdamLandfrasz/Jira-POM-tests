@@ -44,6 +44,6 @@ public class JiraLoginPage extends BasePage{
     }
 
     public void validLogin() {
-        loginWithCredentials("user15", System.getProperty("default_pw"));
+        loginWithCredentials("user15", System.getenv("default_pw"));
     }
 }
