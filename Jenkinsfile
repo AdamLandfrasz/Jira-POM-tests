@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    env {
+    environment {
         withCredentials([string(credentialsId: 'JIRA_PW', variable: 'default_password')]) {
             DEFAULT_PW = "${default_password}"
         }
