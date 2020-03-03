@@ -20,13 +20,10 @@ public abstract class BaseTest {
     protected static void setUp() throws MalformedURLException {
         String gridURL = "https://selenium:" + VALID_PW + "@seleniumhub.codecool.codecanvas.hu/wd/hub";
         MutableCapabilities options = null;
-        switch (BROWSER) {
-            case "chrome":
-                options = new ChromeOptions();
-                break;
-            case "firefox":
-                options = new FirefoxOptions();
-                break;
+        if ("chrome".equals(BROWSER)) {
+            options = new ChromeOptions();
+        } else if ("firefox".equals(BROWSER)) {
+            options = new FirefoxOptions();
         }
         driver = new RemoteWebDriver(new URL(gridURL), options);
         driver.manage().window().maximize();
