@@ -1,5 +1,7 @@
 package pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,6 +41,11 @@ public class GlassDocumentationPage extends BasePage {
     }
 
     public String getTestComponent() {
-        return testComponentInTheList.getText();
+        By component = By.xpath("//*[@id=\"components-table\"]/tbody/tr[@data-component-id='10524']/td[1]");
+        try {
+            return wait.until(ExpectedConditions.presenceOfElementLocated(component)).getText();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 }

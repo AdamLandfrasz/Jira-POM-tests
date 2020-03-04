@@ -46,8 +46,7 @@ public class JiraDashboardPage extends BasePage {
     }
 
     public void navigateToSearchIssues() {
-        issuesNavElement.click();
-        wait.until(ExpectedConditions.elementToBeClickable(searchForIssues)).click();
+        navigateToUrl("issues/?jql=");
     }
 
     public void logout() {

@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -44,6 +45,7 @@ public class TestCreateIssue extends BaseTest {
         Assertions.assertEquals(issueType, issueTypeText);
     }
 
+    @Disabled
     @ParameterizedTest
     @CsvFileSource(resources = "/specific-create.csv")
     void createIssueForSpecificProject(String user, String project, String issueType) {

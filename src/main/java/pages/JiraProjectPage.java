@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class JiraProjectPage extends BasePage {
 
-
     public JiraProjectPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(this.driver, this);
@@ -21,7 +20,6 @@ public class JiraProjectPage extends BasePage {
     }
 
     public boolean isGivenProjectKeyPresent(String projectKey){
-
         try{
             return driver.findElement(By.xpath("//*[@id=\"summary-body\"]//dd[text()=\"" + projectKey + "\"]")).isDisplayed();
         }catch (NoSuchElementException e){

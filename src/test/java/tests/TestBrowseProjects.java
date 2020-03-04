@@ -15,7 +15,6 @@ public class TestBrowseProjects extends BaseTest {
 
     @Test
     void navigateToMTPSummaryPage() {
-
         final String mtpKey = "MTP";
 
         loginPage.navigateToLoginPage();
@@ -39,11 +38,12 @@ public class TestBrowseProjects extends BaseTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/specific-projects.csv")
     void browseSpecificProjects(String username, String project) {
-
         loginPage.navigateToLoginPage();
         loginPage.loginWithCredentials(username, VALID_PW);
         browseProjectsPage.goToProject(project);
-        Assertions.assertTrue(projectPage.isGivenProjectKeyPresent(project));
+        boolean givenProjectKeyPresent = projectPage.isGivenProjectKeyPresent(project);
+        dashboardPage.logout();
+        Assertions.assertTrue(givenProjectKeyPresent);
     }
 
 }

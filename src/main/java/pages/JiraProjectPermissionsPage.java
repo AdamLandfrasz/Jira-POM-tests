@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,11 +23,12 @@ public class JiraProjectPermissionsPage extends BasePage {
     }
 
     public String getGivenPermissionTypeValue(String permissionType){
-        By resultRowXPath = By.xpath("//*[@id=\"project-config-panel-permissions\"]//tr[@data-permission-key=\"" + permissionType + "\"]");
-
-        WebElement resultRowElement = driver.findElement(resultRowXPath);
-
-        return resultRowElement.findElement(By.tagName("dd")).getText();
+        By resultRowXPath = By.xpath("//*[@id=\"project-config-panel-permissions\"]//tr[@data-permission-key=\"" + permissionType + "\"]//dd");
+        try {
+            return wait.until(ExpectedConditions.presenceOfElementLocated(resultRowXPath)).getText();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 
     public void navigateToGlassDocumentation(){

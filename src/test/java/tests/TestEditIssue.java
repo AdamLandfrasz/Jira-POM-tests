@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import pages.JiraDashboardPage;
 import pages.JiraIssuePage;
 import pages.JiraLoginPage;
 
 public class TestEditIssue extends BaseTest {
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
     private JiraIssuePage issuePage = new JiraIssuePage(driver);
+    private JiraDashboardPage dashboardPage = new JiraDashboardPage(driver);
 
     private String testIssue = "MTP-1043";
     private String oldTitle = "Edit issue works?";
@@ -59,10 +61,12 @@ public class TestEditIssue extends BaseTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/specific-issues.csv")
-    void editabilityOfSpecificIssues(String username, String issue) {
+    void editSpecificIssue(String username, String issue) {
         loginPage.navigateToLoginPage();
         loginPage.loginWithCredentials(username, VALID_PW);
         issuePage.navigateToIssue(issue);
-        Assertions.assertTrue(issuePage.isEditIssueButtonAvailable());
+        boolean editIssueButtonAvailable = issuePage.isEditIssueButtonAvailable();
+        dashboardPage.logout();
+        Assertions.assertTrue(editIssueButtonAvailable);
     }
 }

@@ -1,16 +1,14 @@
 package glassTests;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import pages.*;
+import pages.JiraLoginPage;
+import pages.JiraProjectGlassPage;
+import pages.JiraProjectPermissionsPage;
 import tests.BaseTest;
 
 public class TestPermissions extends BaseTest {
     private JiraLoginPage loginPage = new JiraLoginPage(driver);
-    private JiraDashboardPage dashboardPage = new JiraDashboardPage(driver);
     private JiraProjectPermissionsPage projectPermissionsPage = new JiraProjectPermissionsPage(driver);
     private JiraProjectGlassPage projectGlassPage = new JiraProjectGlassPage(driver);
 
@@ -43,7 +41,7 @@ public class TestPermissions extends BaseTest {
     }
 
     @Test
-    void createIssuePermissions(){
+    void createIssuePermissions() {
         final String permissionType = "Edit Issues";
         final String permissionDataAttribute = "EDIT_ISSUES";
 

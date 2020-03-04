@@ -20,9 +20,9 @@ public class JiraIssuePage extends BasePage {
     private WebElement issueType;
     @FindBy(xpath = "//a[@id=\"opsbar-operations_more\"]")
     private WebElement moreDropdown;
-    @FindBy(xpath = "//*[@id=\"delete-issue\"]")
+    @FindBy(xpath = "//*[@id=\"delete-issue\"]//a")
     private WebElement deleteOption;
-    @FindBy(xpath = "//*[@id=\"create-subtask\"]")
+    @FindBy(xpath = "//*[@id=\"create-subtask\"]//a")
     private WebElement createSubTask;
 
     @FindBy(xpath = "//input[@id=\"delete-issue-submit\"]")
@@ -98,13 +98,14 @@ public class JiraIssuePage extends BasePage {
 
     public void deleteIssue() {
         moreDropdown.click();
+        wait.until(ExpectedConditions.visibilityOf(deleteOption));
         wait.until(ExpectedConditions.elementToBeClickable(deleteOption)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(confirmDeleteButton)).click();
+        wait.until(ExpectedConditions.visibilityOf(confirmDeleteButton)).click();
     }
 
     public void openSubTaskDialog() {
         moreDropdown.click();
-        wait.until(ExpectedConditions.elementToBeClickable(createSubTask)).click();
+        wait.until(ExpectedConditions.visibilityOf(createSubTask)).click();
     }
 
     public String getSubTaskSummaryText() {
