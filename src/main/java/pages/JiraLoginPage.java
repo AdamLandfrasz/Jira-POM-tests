@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,7 +28,9 @@ public class JiraLoginPage extends BasePage{
 
     public void loginWithCredentials(String username, String password) {
         usernameInputField.sendKeys(username);
+        usernameInputField.sendKeys(Keys.TAB);
         passwordInputField.sendKeys(password);
+        passwordInputField.sendKeys(Keys.TAB);
         loginButton.click();
     }
 

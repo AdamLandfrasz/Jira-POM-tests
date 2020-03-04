@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -26,6 +27,7 @@ public abstract class BaseTest {
             options = new FirefoxOptions();
         }
         driver = new RemoteWebDriver(new URL(gridURL), options);
+//        driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
 

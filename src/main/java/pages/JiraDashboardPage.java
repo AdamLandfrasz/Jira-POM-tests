@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -64,7 +65,9 @@ public class JiraDashboardPage extends BasePage {
 
     public void loginFromDashboard(String username, String pw) {
         wait.until(ExpectedConditions.elementToBeClickable(usernameField)).sendKeys(username);
+        usernameField.sendKeys(Keys.TAB);
         wait.until(ExpectedConditions.elementToBeClickable(passwordField)).sendKeys(pw);
+        passwordField.sendKeys(Keys.TAB);
         passwordField.submit();
         wait.until(ExpectedConditions.elementToBeClickable(profileLink));
     }
