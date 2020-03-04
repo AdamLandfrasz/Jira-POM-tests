@@ -10,7 +10,7 @@ public abstract class BasePage {
 
     BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, 6);
+        this.wait = new WebDriverWait(this.driver, Integer.parseInt(System.getenv("timeout")));
     }
 
     void navigateToUrl(String urlPart) {

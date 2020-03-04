@@ -1,4 +1,4 @@
-package tests;
+package glassTests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
