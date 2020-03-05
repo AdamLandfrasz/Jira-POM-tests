@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class JiraCreateIssuePage extends BasePage{
+public class JiraCreateIssuePage extends BasePage {
     @FindBy(xpath = "//a[@id=\"create_link\"]")
     private WebElement createNavButton;
     @FindBy(xpath = "//div[@id=\"create-issue-dialog\"]")
@@ -15,10 +15,13 @@ public class JiraCreateIssuePage extends BasePage{
 
     @FindBy(xpath = "//input[@id=\"project-field\"]")
     private WebElement projectField;
+    private By projectFieldXpath = By.xpath("//input[@id=\"project-field\"]");
     @FindBy(xpath = "//input[@id=\"issuetype-field\"]")
     private WebElement issueTypeField;
+    private By issueTypeFieldXpath = By.xpath("//input[@id=\"issuetype-field\"]");
     @FindBy(xpath = "//input[@id=\"summary\"]")
     private WebElement summaryField;
+    private By summaryFieldXpath = By.xpath("//input[@id=\"summary\"]");
     @FindBy(xpath = "//input[@id=\"create-issue-submit\"]")
     private WebElement submitIssueButton;
     @FindBy(xpath = "//input[@id=\"create-issue-submit\"]//following-sibling::a")
@@ -29,12 +32,10 @@ public class JiraCreateIssuePage extends BasePage{
         PageFactory.initElements(this.driver, this);
     }
 
-    private void setIssueField(WebElement field, String value) {
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(field)).click();
-        } catch (StaleElementReferenceException e) {
-            wait.until(ExpectedConditions.elementToBeClickable(field)).click();
-        }
+    private void setIssueField(By fieldXpath, WebElement field, String value) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(fieldXpath));
+        wait.until(ExpectedConditions.elementToBeClickable(field)).click();
+
         field.sendKeys(value);
         field.sendKeys(Keys.TAB);
     }
@@ -44,22 +45,22 @@ public class JiraCreateIssuePage extends BasePage{
     }
 
     public void setProjectValue(String projectValue) {
-        setIssueField(projectField, projectValue);
+        setIssueField(projectFieldXpath, projectField, projectValue);
         wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
     }
 
     public void setIssueTypeValue(String issueType) {
-        setIssueField(issueTypeField, issueType);
+        setIssueField(issueTypeFieldXpath, issueTypeField, issueType);
         wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
     }
 
     public void setSummary(String summary) {
-        setIssueField(summaryField, summary);
+        setIssueField(summaryFieldXpath, summaryField, summary);
         wait.until(ExpectedConditions.elementToBeClickable(issueCreateDialog));
     }
 
     public void setSubTaskSummary(String summary) {
-        setIssueField(summaryField, summary);
+        setIssueField(summaryFieldXpath, summaryField, summary);
         wait.until(ExpectedConditions.elementToBeClickable(createSubTaskDialog));
     }
 
@@ -70,7 +71,8 @@ public class JiraCreateIssuePage extends BasePage{
     private void acceptAlert() {
         try {
             driver.switchTo().alert().accept();
-        } catch (NoAlertPresentException ignored){}
+        } catch (NoAlertPresentException ignored) {
+        }
     }
 
     public void cancelIssueCreation() {
@@ -83,7 +85,7 @@ public class JiraCreateIssuePage extends BasePage{
             return wait.until(ExpectedConditions.elementToBeClickable(field)).getAttribute("value");
         } catch (NoSuchElementException e) {
             return null;
-        }catch (StaleElementReferenceException e) {
+        } catch (StaleElementReferenceException e) {
             return wait.until(ExpectedConditions.elementToBeClickable(field)).getAttribute("value");
         }
     }
