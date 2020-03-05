@@ -41,8 +41,8 @@ public class JiraDashboardPage extends BasePage {
     }
 
     public void navigateToViewAllProjects() {
-        projectsNavElement.click();
-        wait.until(ExpectedConditions.elementToBeClickable(viewAllProjects)).click();
+        wait.until(ExpectedConditions.visibilityOf(projectsNavElement)).click();
+        wait.until(ExpectedConditions.visibilityOf(viewAllProjects)).click();
     }
 
     public void navigateToSearchIssues() {

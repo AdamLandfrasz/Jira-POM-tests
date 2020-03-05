@@ -38,7 +38,7 @@ public class JiraIssuePage extends BasePage {
     private WebElement editIssueButton;
     @FindBy(xpath = "//*[@id=\"qf-field-picker-trigger\"]")
     private WebElement configureFieldsButton;
-    @FindBy(xpath = "//*[@id=\"inline-dialog-field_picker_popup\"]/div[1]/div/div[1]/dl/dd[1]")
+    @FindBy(xpath = "//div[@id='inline-dialog-field_picker_popup']//dd[text()='All']")
     private WebElement optionAll;
     @FindBy(xpath = "//*[@id=\"summary\"]")
     private WebElement summaryField;
@@ -123,11 +123,13 @@ public class JiraIssuePage extends BasePage {
     }
 
     public void clickConfigureFieldsButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(configureFieldsButton));
+        By configureFieldsButtonXpath = By.xpath("//*[@id=\"qf-field-picker-trigger\"]");
+        By optionAllXpath = By.xpath("//div[@id='inline-dialog-field_picker_popup']//dd[text()='All']");
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(configureFieldsButtonXpath));
         configureFieldsButton.click();
-        wait.until(ExpectedConditions.elementToBeClickable(optionAll));
         try {
-            optionAll.click();
+            wait.until(ExpectedConditions.presenceOfElementLocated(optionAllXpath)).click();
         }
         catch(ElementNotInteractableException ignored) {}
     }
